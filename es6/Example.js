@@ -42,11 +42,12 @@ export class Example1 extends ControllerView {
     }
     render() {
         let state = this.state;
-        return (React.createElement("div", { className: "example-1", "data-type": "1" },
-            React.createElement("div", { className: "btn", onClick: this.onCountClick },
-                "Count: ",
-                state.id,
-                " ")));
+        return (React.createElement("div", {className: "example-1", "data-type": "1"}, 
+            React.createElement("div", {className: "btn", onClick: this.onCountClick}, 
+                "Count: ", 
+                state.id, 
+                " ")
+        ));
     }
 }
 export class Example2 extends ControllerView {
@@ -55,9 +56,9 @@ export class Example2 extends ControllerView {
     }
     render() {
         let state = this.state;
-        return (React.createElement("div", { className: "example-2", "data-type": "2" },
-            "This is just a test. ",
-            state.index,
+        return (React.createElement("div", {className: "example-2", "data-type": "2"}, 
+            "This is just a test. ", 
+            state.index, 
             " "));
     }
 }
