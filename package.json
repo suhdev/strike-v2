@@ -1,9 +1,9 @@
 {
   "name": "strike-v2",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Version 2 of StrikeJS framework.",
   "main": "lib/index.js",
-  "jsnext:main":"es6/index.js",
+  "jsnext:main": "es6/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -35,5 +35,10 @@
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
     }
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   }
 }
