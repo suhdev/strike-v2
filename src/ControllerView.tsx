@@ -4,7 +4,6 @@ import {Action} from './Action';
 import {Store,DispatchFn} from './Store';
 import {Reducer} from './Reducer';
 import * as Immutable from 'immutable';  
-
 /**
  * Default properties of {ControllerView} components
  * 

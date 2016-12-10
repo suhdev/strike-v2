@@ -1,6 +1,7 @@
 import {Reducer} from './Reducer';
 import {Dictionary} from './Util';
 import {Action} from './Action';
+
 /**
  * Responsible for combining results of the reducers within the application to create the application's state. 
  * 

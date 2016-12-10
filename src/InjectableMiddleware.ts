@@ -2,7 +2,6 @@ import {Middleware} from './Middleware';
 import {PromiseAction, Action, ServiceAction} from './Action';
 import {Store} from './Store';
 import {Injector} from './Injector';
-
 /**
  * Creates a middleware that can handle {PromiseAction} 
  * 

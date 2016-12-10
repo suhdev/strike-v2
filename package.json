@@ -2,9 +2,10 @@
   "name": "strike-v2",
   "version": "1.0.0",
   "description": "Version 2 of StrikeJS framework.",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "jsnext:main":"es6/index.js",
   "scripts": {
-    "prepublish": "tsc --module es6 --target es6 --rootDir ./src --outDir ./es6 --jsx react && tsc --module commonjs --target es6 --rootDir ./src --outDir ./lib --jsx react && tsc --module commonjs --target es5 --rootDir ./src --outDir ./es5 --jsx react",
+    "prepublish": "tsc --module es6 --target es6 --rootDir ./src --outDir ./es6 --jsx react && tsc --module commonjs --target es6 --rootDir ./src --outDir ./lib --jsx react && tsc --module amd --target es5 --rootDir ./src --outFile ./es5/strike.js --jsx react",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,8 @@
     "typescript": "^2.1.4"
   },
   "jspm": {
+    "main": "es6/index.js",
+    "format": "es6",
     "dependencies": {
       "immutable": "npm:immutable@^3.8.1",
       "react": "npm:react@^15.4.1",

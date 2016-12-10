@@ -1,5 +1,6 @@
 'use strict';
 import {Dictionary, extractArgumentsFromFunction} from './Util';
+
 /**
  * A dependency injection module inspired by AngularJS's dependency injection. 
  * 
@@ -233,4 +234,4 @@ export class Injector {
 	}
 }
 
-export default Injector;
+export default  Injector;

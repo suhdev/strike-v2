@@ -9,10 +9,10 @@ import {Action} from './Action';
 import * as Immutable from 'immutable';
 
 export interface StoreOptions {
-    ready?:boolean; 
-    initialState?:Immutable.Map<string,any>; 
-    middlewares?:Middleware[]; 
-    trackChanges?:boolean;
+	ready?:boolean; 
+	initialState?:Immutable.Map<string,any>; 
+	middlewares?:Middleware[]; 
+	trackChanges?:boolean;
 }
 
 export interface DispatchFn<T extends Action> {

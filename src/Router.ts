@@ -254,7 +254,7 @@ export class Router implements RouteChangeHandler{
         this._appDefs = [this._defaultApp]; 
         this._currentRoute = null;      
         this._strategy = opts.strategy || new HashChangeStrategy(this); 
-         
+        
     }
 
     onRouteChange(newRoute:string,prevRoute:string){
