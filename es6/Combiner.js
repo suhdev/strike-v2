@@ -6,6 +6,16 @@
  */
 export class Combiner {
     /**
+     * Create a new instance of {Combine} with the provided reducers.
+     *
+     * @static
+     * @param {...Reducer[]} args the reducers to register
+     * @returns (description)
+     */
+    static combine(...args) {
+        return new Combiner(...args);
+    }
+    /**
      * Creates an instance of Combiner.
      *
      * @param {...Reducer[]} args (description)
@@ -16,16 +26,6 @@ export class Combiner {
         for (i = 0; i < args.length; i++) {
             this.addReducer(args[i]);
         }
-    }
-    /**
-     * Create a new instance of {Combine} with the provided reducers.
-     *
-     * @static
-     * @param {...Reducer[]} args the reducers to register
-     * @returns (description)
-     */
-    static combine(...args) {
-        return new Combiner(...args);
     }
     addReducer(r) {
         if (typeof r === "string" && arguments.length === 2) {

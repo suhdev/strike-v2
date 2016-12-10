@@ -210,7 +210,7 @@ define("Combiner", ["require", "exports"], function (require, exports) {
         function Combiner() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             this.reducers = {};
             var i = 0;
@@ -228,7 +228,7 @@ define("Combiner", ["require", "exports"], function (require, exports) {
         Combiner.combine = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             return new (Combiner.bind.apply(Combiner, [void 0].concat(args)))();
         };
@@ -312,7 +312,7 @@ define("Pool", ["require", "exports"], function (require, exports) {
 define("StatefulComponent", ["require", "exports"], function (require, exports) {
     "use strict";
 });
-define("Store", ["require", "exports", "Combiner", "Pool", 'immutable'], function (require, exports, Combiner_1, Pool_1, Immutable) {
+define("Store", ["require", "exports", "Combiner", "Pool", "immutable"], function (require, exports, Combiner_1, Pool_1, Immutable) {
     "use strict";
     var ChangeStatus;
     (function (ChangeStatus) {
@@ -623,7 +623,7 @@ define("Store", ["require", "exports", "Combiner", "Pool", 'immutable'], functio
 define("Action", ["require", "exports"], function (require, exports) {
     "use strict";
 });
-define("ControllerView", ["require", "exports", 'react'], function (require, exports, react_1) {
+define("ControllerView", ["require", "exports", "react"], function (require, exports, react_1) {
     "use strict";
     /**
      * A {ControllerView} is a ReactJS component that manages a specific space of the application state.
@@ -639,12 +639,13 @@ define("ControllerView", ["require", "exports", 'react'], function (require, exp
     var ControllerView = (function (_super) {
         __extends(ControllerView, _super);
         function ControllerView(props, stateKey, initialState, reducer) {
-            _super.call(this, props);
-            this.state = initialState;
-            this.$$store = props.store;
-            this.dispatch = this.$$store.dispatch;
-            this.$$stateKey = stateKey;
-            this.$$reducer = reducer;
+            var _this = _super.call(this, props) || this;
+            _this.state = initialState;
+            _this.$$store = props.store;
+            _this.dispatch = _this.$$store.dispatch;
+            _this.$$stateKey = stateKey;
+            _this.$$reducer = reducer;
+            return _this;
         }
         /**
          * Returns the component's reducer function
@@ -855,7 +856,7 @@ define("Injector", ["require", "exports", "Util"], function (require, exports, U
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = Injector;
 });
-define("Router", ["require", "exports", 'react', 'react-dom', "Util"], function (require, exports, React, ReactDOM, Util_2) {
+define("Router", ["require", "exports", "react", "react-dom", "Util"], function (require, exports, React, ReactDOM, Util_2) {
     "use strict";
     function makeProps($inject, injector) {
         var props = {};
@@ -873,7 +874,7 @@ define("Router", ["require", "exports", 'react', 'react-dom', "Util"], function 
         function meta() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             if (args.length == 2) {
                 app.meta[args[0]] = args[1];
@@ -1122,7 +1123,7 @@ define("Router", ["require", "exports", 'react', 'react-dom', "Util"], function 
     }());
     exports.Router = Router;
 });
-define("Example", ["require", "exports", 'react', "Store", "ControllerView", "Injector", 'immutable', "Router"], function (require, exports, React, Store_1, ControllerView_1, Injector_1, Immutable, Router_1) {
+define("Example", ["require", "exports", "react", "Store", "ControllerView", "Injector", "immutable", "Router"], function (require, exports, React, Store_1, ControllerView_1, Injector_1, Immutable, Router_1) {
     "use strict";
     function reduce1(state, action) {
         console.log(action);
@@ -1152,8 +1153,9 @@ define("Example", ["require", "exports", 'react', "Store", "ControllerView", "In
     var Example1 = (function (_super) {
         __extends(Example1, _super);
         function Example1(props) {
-            _super.call(this, props, 'example', {}, reduce1);
-            this.onCountClick = this.onCountClick.bind(this);
+            var _this = _super.call(this, props, 'example', {}, reduce1) || this;
+            _this.onCountClick = _this.onCountClick.bind(_this);
+            return _this;
         }
         Example1.prototype.onCountClick = function () {
             this.dispatch({
@@ -1163,12 +1165,11 @@ define("Example", ["require", "exports", 'react', "Store", "ControllerView", "In
         };
         Example1.prototype.render = function () {
             var state = this.state;
-            return (React.createElement("div", {className: "example-1", "data-type": "1"}, 
-                React.createElement("div", {className: "btn", onClick: this.onCountClick}, 
-                    "Count: ", 
-                    state.id, 
-                    " ")
-            ));
+            return (React.createElement("div", { className: "example-1", "data-type": "1" },
+                React.createElement("div", { className: "btn", onClick: this.onCountClick },
+                    "Count: ",
+                    state.id,
+                    " ")));
         };
         return Example1;
     }(ControllerView_1.ControllerView));
@@ -1176,13 +1177,13 @@ define("Example", ["require", "exports", 'react', "Store", "ControllerView", "In
     var Example2 = (function (_super) {
         __extends(Example2, _super);
         function Example2(props) {
-            _super.call(this, props, 'example2', {}, reduce2);
+            return _super.call(this, props, 'example2', {}, reduce2) || this;
         }
         Example2.prototype.render = function () {
             var state = this.state;
-            return (React.createElement("div", {className: "example-2", "data-type": "2"}, 
-                "This is just a test. ", 
-                state.index, 
+            return (React.createElement("div", { className: "example-2", "data-type": "2" },
+                "This is just a test. ",
+                state.index,
                 " "));
         };
         return Example2;

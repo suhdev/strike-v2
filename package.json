@@ -1,11 +1,10 @@
 {
   "name": "strike-v2",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Version 2 of StrikeJS framework.",
   "main": "lib/index.js",
   "jsnext:main":"es6/index.js",
   "scripts": {
-    "prepublish": "tsc --module es6 --target es6 --rootDir ./src --outDir ./es6 --jsx react && tsc --module commonjs --target es6 --rootDir ./src --outDir ./lib --jsx react && tsc --module amd --target es5 --rootDir ./src --outFile ./es5/strike.js --jsx react",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
