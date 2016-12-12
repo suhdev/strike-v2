@@ -25,7 +25,6 @@ interface Example2State {
 }
 
 function reduce1(state:Immutable.Map<string,any>,action:Action){
-    console.log(action);
     let newState = state;
     switch(action.type){
         case 0xFF000001:
@@ -84,6 +83,7 @@ export class Example2 extends ControllerView<Example2Props,Example2State> {
         );
     }
 }
+
 
 (function (){
     let injector = new Injector(); 

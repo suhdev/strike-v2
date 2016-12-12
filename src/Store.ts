@@ -59,9 +59,7 @@ function createDispatcher():Dispatcher{
 	function exec(){
 		busy = true; 
 		let item:StateChange = null;
-		console.log(list); 
 		while((item = list.shift()) && item.status === ChangeStatus.OBSELETE){}
-		console.log(item);
 		if (item){
 			requestAnimationFrame(()=>{
 				item.status = ChangeStatus.EXECUTING;
@@ -71,7 +69,6 @@ function createDispatcher():Dispatcher{
 	}
 
 	function run(c:StatefulComponent<any>,newState:any){
-		console.log(newState);
 		let key = c.getStateKey(), objs = changed[key], obj:StateChange;
 		obj = changePool.get(); 
 		obj.status = ChangeStatus.PENDING;

@@ -208,7 +208,6 @@ class HashChangeStrategy implements RouteChangeStrategy{
     _onHashChange(){
         let prev = this._prevHash = this._currentHash;  
         let current = this._currentHash = location.hash.substr(1); 
-        console.log(current);
         this._handler.onRouteChange(current,prev);
         
     }
