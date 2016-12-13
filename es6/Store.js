@@ -30,9 +30,7 @@ function createDispatcher() {
     function exec() {
         busy = true;
         let item = null;
-        console.log(list);
         while ((item = list.shift()) && item.status === ChangeStatus.OBSELETE) { }
-        console.log(item);
         if (item) {
             requestAnimationFrame(() => {
                 item.status = ChangeStatus.EXECUTING;
@@ -41,13 +39,12 @@ function createDispatcher() {
         }
     }
     function run(c, newState) {
-        console.log(newState);
         let key = c.getStateKey(), objs = changed[key], obj;
         obj = changePool.get();
         obj.status = ChangeStatus.PENDING;
         obj.value = [c, newState];
         if (!objs) {
-            changed[key] = [];
+            objs = changed[key] = [];
         }
         if (busy) {
             objs = objs.filter((e) => {

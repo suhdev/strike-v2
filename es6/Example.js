@@ -5,7 +5,6 @@ import { Injector } from './Injector';
 import * as Immutable from 'immutable';
 import { Router } from './Router';
 function reduce1(state, action) {
-    console.log(action);
     let newState = state;
     switch (action.type) {
         case 0xFF000001:
