@@ -74,7 +74,7 @@ function createDispatcher():Dispatcher{
 		obj.status = ChangeStatus.PENDING;
 		obj.value = [c,newState]; 
 		if (!objs){
-			changed[key] = []; 
+			objs = changed[key] = []; 
 		}
 		if (busy){
 			objs = objs.filter((e)=>{

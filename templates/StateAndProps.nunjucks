@@ -1,0 +1,15 @@
+import {ControllerViewProps} from 'strike-v2'; 
+
+export interface {{controller.Name}}Props extends ControllerViewProps {
+
+}
+
+export interface {{controller.Name}}State{
+
+}
+
+export const STATE_KEY = '{{controller.stateKey}}'; 
+
+export const {{controller.Name}}InitialState = {
+
+}; 

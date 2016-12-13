@@ -1,6 +1,6 @@
 {
   "name": "strike-v2",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Version 2 of StrikeJS framework.",
   "main": "lib/index.js",
   "jsnext:main": "es6/index.js",
@@ -19,11 +19,12 @@
   "homepage": "https://github.com/suhdev/strike-v2#readme",
   "devDependencies": {
     "jspm": "^0.16.48",
+    "nunjucks": "^3.0.0",
     "tslint": "^4.0.2",
     "typescript": "^2.1.4"
   },
   "jspm": {
-    "registry":"npm",
+    "registry": "npm",
     "main": "es6/index.js",
     "format": "es6",
     "dependencies": {

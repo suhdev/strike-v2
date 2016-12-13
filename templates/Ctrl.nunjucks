@@ -1,0 +1,18 @@
+import * as React from 'react'; 
+import {ControllerView} from 'strike-v2'; 
+import {STATE_KEY,{{controller.name}}State,{{controller.name}}Props,{{controller.Name}}InitialState} from './StateAndProps'; 
+import {Reducer} from './Reducer'; 
+
+export class {{controller.name}} extends ControllerView<{{controller.name}}Props,{{controller.name}}State>{
+    constructor(props:{{controller.name}}Props){
+        super(props,STATE_KEY,{{controller.name}}InitialState,Reducer); 
+    }
+
+    render(){
+        return (
+            <div id="{{controller.name}}">
+            
+            </div>
+        ); 
+    }
+}

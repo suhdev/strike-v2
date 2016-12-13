@@ -1,0 +1,11 @@
+import * as Immutable from 'immutable'; 
+import {Action} from 'strike-v2';
+import {TYPES} from './Actions';  
+
+export function Reducer(state:Immutable.Map<string,any>,action:Action){
+    let newState = state; 
+    switch(action.type){
+        
+    }
+    return newState; 
+}
