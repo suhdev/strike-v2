@@ -472,27 +472,27 @@ declare module "strike-v2" {
         routeTest?:((route:string)=>boolean)|string|RegExp;
     }
 
-    interface RouteBuilder {
-        rule(r:string):RouteBuilder;
-        data(d:any):RouteBuilder;
-        onMount(callback:(e:React.ReactElement<any>)=>void):RouteBuilder; 
-        onBeforeMount(fn:Function):RouteBuilder; 
-        add():RouteBuilder;
-        create():Router; 
+    interface RouteBuilder<T extends RouteManager> {
+        rule(r:string):RouteBuilder<T>;
+        data(d:any):RouteBuilder<T>;
+        onMount(callback:(e:React.ReactElement<any>)=>void):RouteBuilder<T>; 
+        onBeforeMount(fn:Function):RouteBuilder<T>; 
+        add():RouteBuilder<T>;
+        create():T; 
     }
 
     interface ApplicationBuilder {
         addRoute(route:Route);
-        routes():RouteBuilder; 
+        routes():RouteBuilder<ApplicationBuilder>; 
         attach(); 
         meta(...args:any[]); 
     }
 
 
 
-    function createApplicationBuilder(router:Router,component:React.ComponentClass<any>):RouteBuilder;
+    function createApplicationBuilder(router:Router,component:React.ComponentClass<any>):ApplicationBuilder;
 
-    function createRouteDefBuilder<T extends RouteManager>(router:T):RouteBuilder;
+    function createRouteDefBuilder<T extends RouteManager>(router:T):RouteBuilder<T>;
 
     function makeRouteFromMatches(route:Route,matches:string[]);
 
