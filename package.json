@@ -1,10 +1,12 @@
 {
   "name": "strike-v2",
-  "version": "0.1.13",
+  "version": "0.1.16",
   "description": "Version 2 of StrikeJS framework.",
   "main": "lib/index.js",
   "jsnext:main": "es6/es6.js",
   "scripts": {
+    "build":"babel es6 -d lib",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +27,7 @@
   },
   "jspm": {
     "registry": "npm",
-    "main": "es6/index.js",
+    "main": "es6/es6.js",
     "format": "es6",
     "dependencies": {
       "immutable": "^3.8.1",
