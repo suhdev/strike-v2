@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import * as React from 'react';
 /**
  * A {ControllerView} is a ReactJS component that manages a specific space of the application state.
  * It is responsible for passing that part of the application state to other stateless/stateful components.
@@ -10,7 +10,7 @@ import { Component } from 'react';
  * @template T any object that extends/implements {ControllerViewProps}
  * @template V
  */
-export class ControllerView extends Component {
+export class ControllerView extends React.Component {
     constructor(props, stateKey, initialState, reducer) {
         super(props);
         this.state = initialState;

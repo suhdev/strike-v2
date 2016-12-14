@@ -164,4 +164,3 @@ export class Injector {
         return this;
     }
 }
-export default Injector;

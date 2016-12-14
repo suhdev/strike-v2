@@ -1,16 +1,12 @@
 "use strict";
-(function () {
-    if (!String.prototype.repeat) {
-        String.prototype.repeat = function (count) {
-            let r = [];
-            let i = 0;
-            for (; i < count; i++) {
-                r.push(this);
-            }
-            return r.join("");
-        };
+export function repeat(str, count) {
+    let r = [];
+    let i = 0;
+    for (; i < count; i++) {
+        r.push(str);
     }
-}());
+    return r.join("");
+}
 export function identity(v) {
     return v;
 }
@@ -89,7 +85,7 @@ const FORMATTERS = {
             let len = parseInt(extra);
             let v = item + "";
             if (v.length < len) {
-                return "0".repeat(len - v.length) + v;
+                return repeat("0", len - v.length) + v;
             }
             return v;
         }

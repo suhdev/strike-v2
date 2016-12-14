@@ -895,7 +895,7 @@ export function createFormatter():Formatter;
 export function printf(format:string,...args:any[]):string;
 
 
-
+export function repeat(str:string,count:number):string;
 
 
 }

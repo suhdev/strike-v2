@@ -1,9 +1,9 @@
 {
   "name": "strike-v2",
-  "version": "0.1.17",
+  "version": "0.1.19",
   "description": "Version 2 of StrikeJS framework.",
-  "main": "lib/index.js",
-  "jsnext:main": "es6/es6.js",
+  "main": "main.js",
+  "jsnext:main": "es6.js",
   "scripts": {
     "build": "babel es6 -d lib",
     "prepublish": "npm run build",
@@ -23,6 +23,11 @@
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.1",
     "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-delete-lines": "0.0.7",
+    "gulp-insert": "^0.5.0",
+    "gulp-minify": "0.0.14",
+    "gulp-typescript": "^3.1.3",
     "jspm": "^0.16.48",
     "nunjucks": "^3.0.0",
     "tslint": "^4.0.2",
@@ -30,7 +35,7 @@
   },
   "jspm": {
     "registry": "npm",
-    "main": "es6/es6.js",
+    "main": "es6.js",
     "format": "es6",
     "dependencies": {
       "immutable": "^3.8.1",

@@ -1,4 +1,3 @@
-import {Component} from 'react'; 
 import * as React from 'react';
 import {Action} from './Action'; 
 import {Store,DispatchFn} from './Store';
@@ -29,7 +28,7 @@ export interface ControllerViewProps {
  * @template T any object that extends/implements {ControllerViewProps}
  * @template V
  */
-export class ControllerView<T extends ControllerViewProps,V> extends Component<T,V> {
+export class ControllerView<T extends ControllerViewProps,V> extends React.Component<T,V> {
 	/**
 	 * The application state store
 	 * 
