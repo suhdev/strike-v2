@@ -1,11 +1,37 @@
-export { Combiner } from './Combiner';
-export { Store } from './Store';
-export { Router } from './Router';
-export { printf, setDataAt, getDataAt, createFormatter, identity, extractArgumentsFromFunction, format } from './Util';
-export { Injector } from './Injector';
-export { ControllerView } from './ControllerView';
-export { Injectable } from './InjectableMiddleware';
-export { IntegerPromisifer } from './IntegerPromisifyMiddleware';
-export { Promisify } from './PromisifyMiddleware';
-export { createPool } from './Pool';
-export { WorkerMiddleware } from './WorkerMiddleware';
+import { Combiner } from './Combiner';
+import { Store } from './Store';
+import { Router } from './Router';
+import { printf, setDataAt, getDataAt, createFormatter, identity, extractArgumentsFromFunction, format } from './Util';
+import { Injector } from './Injector';
+import { ControllerView } from './ControllerView';
+import { Injectable } from './InjectableMiddleware';
+import { IntegerPromisifer } from './IntegerPromisifyMiddleware';
+import { Promisify } from './PromisifyMiddleware';
+import { createPool } from './Pool';
+import { WorkerMiddleware } from './WorkerMiddleware';
+(function (global, factory) {
+    if (global.module && global.module.exports) {
+        global.module.exports = factory();
+    }
+    global.StrikeJS = factory();
+}(this, function () {
+    return {
+        Combiner,
+        Store,
+        Router,
+        printf,
+        setDataAt,
+        getDataAt,
+        createFormatter,
+        createPool,
+        format,
+        extractArgumentsFromFunction,
+        identity,
+        Injector,
+        ControllerView,
+        Injectable,
+        IntegerPromisifer,
+        Promisify,
+        WorkerMiddleware,
+    };
+}));

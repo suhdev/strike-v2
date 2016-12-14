@@ -1,14 +1,41 @@
-export {Action,PromiseAction,ServiceAction} from './Action'; 
-export {Combiner} from './Combiner'; 
-export {Store,StoreOptions,DispatchFn} from './Store';
-export {Router} from './Router';
-export {StatefulComponent} from './StatefulComponent'; 
-export {printf,setDataAt,getDataAt,createFormatter,identity,extractArgumentsFromFunction,format} from './Util';
-export {Injector} from './Injector'; 
-export {ControllerView,ControllerViewProps} from './ControllerView'; 
-export {Injectable} from './InjectableMiddleware';
-export {IntegerPromisifer} from './IntegerPromisifyMiddleware';
-export {Promisify} from './PromisifyMiddleware'; 
-export {Reducer} from './Reducer'; 
-export {createPool} from './Pool'; 
-export {WorkerMiddleware,WorkerAction} from './WorkerMiddleware';
+import {Action,PromiseAction,ServiceAction} from './Action'; 
+import {Combiner} from './Combiner'; 
+import {Store,StoreOptions,DispatchFn} from './Store';
+import {Router} from './Router';
+import {StatefulComponent} from './StatefulComponent'; 
+import {printf,setDataAt,getDataAt,createFormatter,identity,extractArgumentsFromFunction,format} from './Util';
+import {Injector} from './Injector'; 
+import {ControllerView,ControllerViewProps} from './ControllerView'; 
+import {Injectable} from './InjectableMiddleware';
+import {IntegerPromisifer} from './IntegerPromisifyMiddleware';
+import {Promisify} from './PromisifyMiddleware'; 
+import {Reducer} from './Reducer'; 
+import {createPool} from './Pool'; 
+import {WorkerMiddleware,WorkerAction} from './WorkerMiddleware';
+
+(function(global,factory){
+    if (global.module && global.module.exports){
+        global.module.exports = factory(); 
+    }
+    global.StrikeJS = factory();
+}(this,function(){
+    return {
+            Combiner,
+            Store,
+            Router,
+            printf,
+            setDataAt,
+            getDataAt,
+            createFormatter,
+            createPool,
+            format,
+            extractArgumentsFromFunction,
+            identity,
+            Injector,
+            ControllerView,
+            Injectable,
+            IntegerPromisifer,
+            Promisify,
+            WorkerMiddleware,
+        };
+}))

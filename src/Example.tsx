@@ -50,9 +50,10 @@ function reduce2(state:Immutable.Map<string,any>,action:Action){
     return newState; 
 }
 
+
 export class Example1 extends ControllerView<Example1Props,Example1State> {
     constructor(props:Example1Props){
-        super(props,'example',{},reduce1); 
+        super(props,'example',{},reduce1 as any); 
         this.onCountClick = this.onCountClick.bind(this); 
     }
 
@@ -73,7 +74,7 @@ export class Example1 extends ControllerView<Example1Props,Example1State> {
 
 export class Example2 extends ControllerView<Example2Props,Example2State> {
     constructor(props:Example2Props){
-        super(props,'example2',{},reduce2); 
+        super(props,'example2',{},reduce2 as any); 
     }
 
     render(){
