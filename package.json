@@ -5,8 +5,6 @@
   "main": "main.js",
   "jsnext:main": "es6.js",
   "scripts": {
-    "build": "babel es6 -d lib",
-    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
