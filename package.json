@@ -1,6 +1,6 @@
 {
   "name": "strike-v2",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Version 2 of StrikeJS framework.",
   "main": "lib/index.js",
   "jsnext:main": "es6/es6.js",
