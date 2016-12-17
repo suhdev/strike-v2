@@ -71,6 +71,7 @@ function createApplicationBuilder(router:Router,component:React.ComponentClass<a
         router.attachApp(app); 
         return 
     }
+
     let o = {
         addRoute:addRoute,
         meta,
@@ -237,6 +238,7 @@ export class Router implements RouteChangeHandler{
     _currentRoute:Route; 
     _injector:Injector;
     _defaultApp:AppDef; 
+    _currentApp:AppDef;
     _actionType:string|number;
     _appDefs:AppDef[];
     _activeComponent:any;
@@ -270,12 +272,6 @@ export class Router implements RouteChangeHandler{
             matches:string[] = null; 
         for (;i<l;i++){
             app = apps[i];
-            // if ((test = app.routeTest) && 
-            //     ((typeof test === "string" && (new RegExp(test)).test(newRoute)) || 
-            //     (test && test.test && test.test(newRoute)) || 
-            //     typeof test === "function" && test(newRoute))){
-            //     found = true; 
-            // }
             routes = app.routes;
             for(let j=0,m=routes.length;j<m;j++){
                 route = routes[j]; 
@@ -292,27 +288,29 @@ export class Router implements RouteChangeHandler{
             }
         }
         if (found){
+            route.params = route.params || {};
             let newRoute = makeRouteFromMatches(route,matches);
-            if (this._currentRoute !== route){
+            if (this._currentRoute !== route && app !== this._currentApp){
                 this._prevRoute = this._currentRoute;
                 this._currentRoute = newRoute; 
                 route.onBeforeMount && route.onBeforeMount(); 
+                this._currentApp = app; 
                 if (app.component){
                     ReactDOM.unmountComponentAtNode(this._el); 
                     const Comp = app.component; 
                     let props = makeProps(app.$inject || [],this._injector)
                     props.store = this._store;
                     this._activeComponent = ReactDOM.render(React.createElement(app.component,props) as React.ComponentElement<any,any>,this._el,route.onMount);
-                    this._store.dispatch({
-                        type:this._actionType,
-                        data:{
-                            route:{
-                                data:route.data,
-                                params:route.params
-                            },
-                            appMeta:app.meta
-                        }
-                    });
+                    // this._store.dispatch({
+                    //     type:this._actionType,
+                    //     data:{
+                    //         route:{
+                    //             data:route.data,
+                    //             params:route.params
+                    //         },
+                    //         appMeta:app.meta
+                    //     }
+                    // });
                 }
             }
             this._store.dispatch({
