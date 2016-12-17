@@ -144,7 +144,7 @@ function makeRouteFromMatches(route:Route,matches:string[]){
 
 const TYPES_TO_REGEX:Dictionary<string> = {
     "number":'([0-9]+)',
-    "string":'([\S]+)',
+    "string":'([\\S]+)',
     "boolean":'(true|false|TRUE|FALSE)',
 }
 

@@ -98,7 +98,7 @@ function makeRouteFromMatches(route, matches) {
 }
 const TYPES_TO_REGEX = {
     "number": '([0-9]+)',
-    "string": '([\S]+)',
+    "string": '([\\S]+)',
     "boolean": '(true|false|TRUE|FALSE)',
 };
 const TYPES_TO_PARSE = {

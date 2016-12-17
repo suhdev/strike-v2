@@ -544,7 +544,7 @@ declare module "strike-v2" {
         constructor(el:HTMLElement,store:Store,injector:Injector,opts:ExtRouterOptions);
         onRouteChange(newRoute:string,prevRoute:string);
         attachApp(appDef:AppDef);
-        route():RouteBuilder;
+        route():RouteBuilder<any>;
         addRoute(route:Route):void;
         data(key?:string,val?:any):any;
         param(key?:string):any;
