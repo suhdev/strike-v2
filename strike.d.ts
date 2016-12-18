@@ -900,7 +900,7 @@ export function repeat(str:string,count:number):string;
 
 export interface RouteActionData {
     route:{
-        data:Dictionary<any>,
+        data:Dictionary<any>|any,
         params:Dictionary<any>,
     },
     appMeta:Dictionary<any>
