@@ -898,4 +898,13 @@ export function printf(format:string,...args:any[]):string;
 export function repeat(str:string,count:number):string;
 
 
+export interface RouteActionData {
+    route:{
+        data:Dictionary<any>,
+        params:Dictionary<any>,
+    },
+    appMeta:Dictionary<any>
+}
+
+
 }

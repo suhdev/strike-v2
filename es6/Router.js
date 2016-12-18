@@ -12,6 +12,7 @@ function createApplicationBuilder(router, component) {
     var app = {
         routes: [],
         meta: {},
+        $inject: component.$inject || [],
         component: component,
     };
     function meta(...args) {

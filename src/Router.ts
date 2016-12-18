@@ -41,6 +41,7 @@ function createApplicationBuilder(router:Router,component:React.ComponentClass<a
     var app:AppDef = {
         routes:[],
         meta:{},
+        $inject:(component as any).$inject || [],
         component:component,
     }; 
     
@@ -301,16 +302,6 @@ export class Router implements RouteChangeHandler{
                     let props = makeProps(app.$inject || [],this._injector)
                     props.store = this._store;
                     this._activeComponent = ReactDOM.render(React.createElement(app.component,props) as React.ComponentElement<any,any>,this._el,route.onMount);
-                    // this._store.dispatch({
-                    //     type:this._actionType,
-                    //     data:{
-                    //         route:{
-                    //             data:route.data,
-                    //             params:route.params
-                    //         },
-                    //         appMeta:app.meta
-                    //     }
-                    // });
                 }
             }
             this._store.dispatch({
