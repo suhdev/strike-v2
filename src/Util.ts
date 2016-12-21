@@ -101,8 +101,11 @@ export function format(value: string, replacements: any): string {
  * 
  */
 const FORMATTERS = {
-    "d":(item:number|any,extra:string):string=>{
-        if (extra.charAt(0)=== "."){
+    "typeof":(item:any):string=>{
+        return typeof item; 
+    },
+    "d":(item:number|any,extra?:string):string=>{
+        if (extra && extra.charAt(0)=== "."){
             return item.toFixed(+extra.substr(1));
         }else if (/^[0-9]+$/.test(extra)){
             let len = parseInt(extra); 
@@ -116,9 +119,7 @@ const FORMATTERS = {
             let v = +(((len - Math.floor(len))+"").substr(2));
             let k = parseInt(item)
             let t = item.toFixed(v); 
-
         }
-
         return item; 
     },
     "x":(item:number|any):string=>{
@@ -144,16 +145,15 @@ const FORMATTERS = {
  * @returns
  */
 export function createFormatter(){
-    let formats = ['[0-9]+?\.[0-9]+?d','[0-9]+?d','\.[0-9]+?d','d','x','s','o']; 
+    let formats = ['[0-9]+?\.[0-9]+?d','[0-9]+?d','\.[0-9]+?d','d','x','s','o','typeof']; 
     let customFormats = {};  
     function fmt(format:string,...args:any[]):string{
         let regex = new RegExp("%("+formats.join("|")+")"); 
         let final = args.reduce<string>((prev,current,cIdx)=>{
             return prev.replace(regex,(all:string,a:string)=>{ 
                 let len = a.length,
-                    f = a.charAt(len-1),
-                    fn:any = FORMATTERS[f] || customFormats[f]; 
-                return fn(current,a.substr(0,len-1))
+                    f = a.charAt(len-1); 
+                return (FORMATTERS[a] && FORMATTERS[a](current)) || (customFormats[a] && customFormats[a](current)) || (FORMATTERS[f] && FORMATTERS[f](current,a.substr(0,len-1))) || (customFormats[f] && customFormats[f](current,a.substr(0,len-1))); 
             }); 
         },format);
         return final;
@@ -181,10 +181,10 @@ export function createFormatter(){
  */
 export function printf(format:string,...args:any[]){
     let final = args.reduce<string>((prev,current,cIdx)=>{
-        return prev.replace(/%([0-9]+?\.[0-9]+?d|[0-9]+?d|\.[0-9]+?d|d|x|s|o)/,(all:string,a:string)=>{
+        return prev.replace(/%([0-9]+?\.[0-9]+?d|[0-9]+?d|\.[0-9]+?d|d|x|s|o|typeof)/,(all:string,a:string)=>{
             let len = a.length,
                 f = a.charAt(len-1);
-            return FORMATTERS[f](current,a.substr(0,len-1)); 
+        return (FORMATTERS[a] && FORMATTERS[a](current))||(FORMATTERS[f] && FORMATTERS[f](current,a.substr(0,len-1))); 
         }); 
     },format); 
     return final;
