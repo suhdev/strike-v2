@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+    </head>
+    <body>
+        <div id="Container">
+        </div>
+        <script src="./strike.js"></script>
+        <script type="text/javascript">
+        (function(){
+            let store = StrikeJS.Store.create(Immutable.Map(),[],false,true);
+            let injector = new StrikeJS.Injector(); 
+            let router = new StrikeJS.Router(document.getElementById('Container'),
+                store,injector,{
+                    actionType:0xFF00001, 
+                }); 
+            injector.addInstance('store',store);  
+            injector.addInstance('router',router); 
+
+
+            function reduce(state,action){
+
+            }
+            class Example1 extends StrikeJS.ControllerView{
+                constructor(props){
+                    super(props,'example1',{},reduce);
+                }
+
+
+                render(){
+                    return React.createElement('div',{className:'test-div'},'Suhail');
+                }
+
+                // static $inject = [];
+            }
+
+            Example1.$inject = [];
+
+            router.register(Example1)
+                .routes()
+                .rule('example-1')
+                .data({firstName:'Suhail',lastName:'Abood'})
+                .onLeave((route,inj)=>{
+                    console.log(arguments); 
+                    return new Promise((resolve,reject)=>{
+                        setTimeout(()=>{
+                            reject();
+                        },2000);
+                    });
+                })
+                .create()
+                .attach();
+        }())
+        </script>
+    </body>
+</html>

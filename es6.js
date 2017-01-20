@@ -7,7 +7,7 @@ export {WorkerMiddleware} from './es6/WorkerMiddleware';
 export {Promisify} from './es6/PromisifyMiddleware';
 export {Injector} from './es6/Injector';
 export {ControllerView} from './es6/ControllerView';
-export {IntegerPromisify} from './es6/IntegerPromisifyMiddleware';
+export {IntegerPromisifier} from './es6/IntegerPromisifyMiddleware';
 export {printf,format,setDataAt,getDataAt,createFormatter} from './es6/Util';
 export {Injectable} from './es6/InjectableMiddleware';
 
@@ -20,7 +20,7 @@ export {Injectable} from './es6/InjectableMiddleware';
             Store,
             WorkerMiddleware,
             Promisify,
-            IntegerPromisify,
+            IntegerPromisifier,
             printf,
             format,
             setDataAt,

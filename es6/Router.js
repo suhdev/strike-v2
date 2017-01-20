@@ -92,6 +92,7 @@ function createRouteDefBuilder(router) {
         data,
         onMount,
         onBeforeMount,
+        onLeave,
         create,
     };
     return o;
@@ -153,9 +154,11 @@ class HashChangeStrategy {
                 this._prevHash = prev;
                 this._currentHash = current;
             }, () => {
+                this._silent = true;
                 location.hash = '#' + this._currentHash;
             });
         }
+        this._silent = false;
     }
     getCurrentRoute() {
         return this._currentHash;
@@ -193,7 +196,7 @@ export class Router {
     onRouteChange(newRoute, prevRoute) {
         let i = 0, apps = this._appDefs, l = apps.length, app = null, routes = null, route = null, test = null, r = null, found = false, def = null, matches = null;
         return new Promise((ok, cancel) => {
-            if (this._currentRoute.onLeave) {
+            if (this._currentRoute && this._currentRoute.onLeave) {
                 this._currentRoute.onLeave(this._currentRoute, this._injector)
                     .then(ok, cancel);
                 return;

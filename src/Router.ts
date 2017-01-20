@@ -135,6 +135,7 @@ function createRouteDefBuilder<T extends RouteManager>(router:T){
         data,
         onMount,
         onBeforeMount,
+        onLeave,
         create,
     }; 
 
@@ -228,9 +229,11 @@ class HashChangeStrategy implements RouteChangeStrategy{
                 this._prevHash = prev;
                 this._currentHash = current; 
             },()=>{
+                this._silent = true; 
                 location.hash = '#'+this._currentHash;
             });
         }
+        this._silent = false;
         
     }
 
@@ -299,12 +302,12 @@ export class Router implements RouteChangeHandler{
             def:RouteDef = null,
             matches:string[] = null; 
         return new Promise((ok,cancel)=>{
-                if (this._currentRoute.onLeave){
-                    this._currentRoute.onLeave(this._currentRoute,this._injector)
-                        .then(ok,cancel);
-                    return; 
-                }
-                ok();
+            if (this._currentRoute && this._currentRoute.onLeave){
+                this._currentRoute.onLeave(this._currentRoute,this._injector)
+                    .then(ok,cancel);
+                return; 
+            }
+            ok();
             }).then(()=>{
                 // this._currentRoute
                 for (;i<l;i++){
