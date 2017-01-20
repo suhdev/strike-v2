@@ -1,5 +1,7 @@
 var util = require('./lib/Util'); 
-module.exports = {
+
+
+var o = {
     Combiner:require('./lib/Combiner').Combiner, 
     Store:require('./lib/Store').Store,
     Router:require('./lib/Router').Router,
@@ -18,3 +20,12 @@ module.exports = {
     createFormatter:util.createFormatter,
     repeat:util.repeat
 }
+
+
+(function(){
+    if (window && document){
+        window.StrikeJS = o; 
+    }
+}());
+
+module.exports = o; 

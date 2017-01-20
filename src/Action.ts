@@ -3,7 +3,7 @@ import {Store} from './Store';
 
 
 
-
+// declare type Promise<T> 
 declare var Promise:any;
 
 /**

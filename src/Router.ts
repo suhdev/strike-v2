@@ -27,6 +27,7 @@ export interface Route {
     params?:Dictionary<any>;
     onMount?:(e:React.ReactElement<any>)=>void; 
     onBeforeMount?:Function; 
+    onLeave?:(route:Route,injector:Injector)=>Promise<boolean>;
 }
 
 interface AppDef {
@@ -103,13 +104,20 @@ function createRouteDefBuilder<T extends RouteManager>(router:T){
         return o; 
     }
 
+    function onLeave(callback:(route:Route,injector:Injector)=>Promise<boolean>){
+        route.onLeave = callback;
+        return o;
+    }
+
     function onBeforeMount(fn:Function){
         route.onBeforeMount = fn; 
         return o;
     }
 
     function create(){
-        router.addRoute(route); 
+        if (route && route.routeDef){
+            router.addRoute(route); 
+        }
         return router;
     }
 
@@ -189,6 +197,7 @@ interface RouteChangeStrategy{
     getCurrentRoute();
     getPrevRoute();
     destroy();
+    goBack(silent?:boolean);
     setHandler(handler:RouteChangeHandler); 
 }
 
@@ -196,9 +205,11 @@ class HashChangeStrategy implements RouteChangeStrategy{
     _prevHash:string; 
     _currentHash:string;
     _handler:RouteChangeHandler;
+    _silent:boolean; 
     constructor(handler?:RouteChangeHandler){
         this._prevHash = null;
         this._handler = handler;
+        this._silent = false; 
         this._currentHash = location.hash.substr(1);
         this._onHashChange = this._onHashChange.bind(this); 
         setTimeout(()=>{
@@ -208,9 +219,18 @@ class HashChangeStrategy implements RouteChangeStrategy{
     }
 
     _onHashChange(){
-        let prev = this._prevHash = this._currentHash;  
-        let current = this._currentHash = location.hash.substr(1); 
-        this._handler.onRouteChange(current,prev);
+        if (!this._silent){
+            // let prev = this._prevHash = this._currentHash;  
+            // let current = this._currentHash = location.hash.substr(1); 
+            let prev = this._currentHash,
+                current = location.hash.substr(1); 
+            this._handler.onRouteChange(current,prev).then(()=>{
+                this._prevHash = prev;
+                this._currentHash = current; 
+            },()=>{
+                location.hash = '#'+this._currentHash;
+            });
+        }
         
     }
 
@@ -220,6 +240,13 @@ class HashChangeStrategy implements RouteChangeStrategy{
 
     getPrevRoute(){
         return this._prevHash;
+    }
+
+    goBack(silent?:boolean){
+        this._currentHash = this._prevHash; 
+        this._silent = silent; 
+        location.hash = '#'+this._currentHash;
+        this._silent = false; 
     }
 
     setHandler(handler:RouteChangeHandler){
@@ -259,7 +286,7 @@ export class Router implements RouteChangeHandler{
         
     }
 
-    onRouteChange(newRoute:string,prevRoute:string){
+    onRouteChange(newRoute:string,prevRoute:string):Promise<any>{
         let i=0,
             apps = this._appDefs,
             l = apps.length,
@@ -271,50 +298,63 @@ export class Router implements RouteChangeHandler{
             found = false, 
             def:RouteDef = null,
             matches:string[] = null; 
-        for (;i<l;i++){
-            app = apps[i];
-            routes = app.routes;
-            for(let j=0,m=routes.length;j<m;j++){
-                route = routes[j]; 
-                def = route.routeDef; 
-                r = def.regex;
-                r.lastIndex = 0; 
-                if (matches = newRoute.match(r)){
-                    found = true;
-                    break;
+        return new Promise((ok,cancel)=>{
+                if (this._currentRoute.onLeave){
+                    this._currentRoute.onLeave(this._currentRoute,this._injector)
+                        .then(ok,cancel);
+                    return; 
                 }
-            }
-            if (found){
-                break;
-            }
-        }
-        if (found){
-            route.params = route.params || {};
-            let newRoute = makeRouteFromMatches(route,matches);
-            if (this._currentRoute !== route && app !== this._currentApp){
-                this._prevRoute = this._currentRoute;
-                this._currentRoute = newRoute; 
-                route.onBeforeMount && route.onBeforeMount(); 
-                this._currentApp = app; 
-                if (app.component){
-                    ReactDOM.unmountComponentAtNode(this._el); 
-                    const Comp = app.component; 
-                    let props = makeProps(app.$inject || [],this._injector)
-                    props.store = this._store;
-                    this._activeComponent = ReactDOM.render(React.createElement(app.component,props) as React.ComponentElement<any,any>,this._el,route.onMount);
+                ok();
+            }).then(()=>{
+                // this._currentRoute
+                for (;i<l;i++){
+                    app = apps[i];
+                    routes = app.routes;
+                    for(let j=0,m=routes.length;j<m;j++){
+                        route = routes[j]; 
+                        def = route.routeDef; 
+                        r = def.regex;
+                        r.lastIndex = 0; 
+                        if (matches = newRoute.match(r)){
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found){
+                        break;
+                    }
                 }
-            }
-            this._store.dispatch({
-                type:this._actionType,
-                data:{
-                    route:{
-                        data:route.data,
-                        params:route.params
-                    },
-                    appMeta:app.meta
+                if (found){
+                    route.params = route.params || {};
+                    let newRoute = makeRouteFromMatches(route,matches);
+                    if (this._currentRoute !== route && app !== this._currentApp){
+                        this._prevRoute = this._currentRoute;
+                        this._currentRoute = newRoute; 
+                        route.onBeforeMount && route.onBeforeMount(); 
+                        this._currentApp = app; 
+                        if (app.component){
+                            ReactDOM.unmountComponentAtNode(this._el); 
+                            const Comp = app.component; 
+                            let props = makeProps(app.$inject || [],this._injector)
+                            props.store = this._store;
+                            this._activeComponent = ReactDOM.render(React.createElement(app.component,props) as React.ComponentElement<any,any>,this._el,route.onMount);
+                        }
+                    }
+                    this._store.dispatch({
+                        type:this._actionType,
+                        data:{
+                            route:{
+                                data:route.data,
+                                params:route.params
+                            },
+                            appMeta:app.meta
+                        }
+                    });
                 }
-            });
-        }
+                return 1; 
+
+            }); 
+        
     }
 
     attachApp(appDef:AppDef){

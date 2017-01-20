@@ -462,6 +462,7 @@ declare module "strike-v2" {
         params?:Dictionary<any>;
         onMount?:(e:React.ReactElement<any>)=>void; 
         onBeforeMount?:Function; 
+        onLeave?:(route:Route,injector:Injector)=>Promise<boolean>;
     }
 
     interface AppDef {
@@ -504,7 +505,7 @@ declare module "strike-v2" {
     }
 
     interface RouteChangeHandler {
-        onRouteChange(newRoute:string,prevRoute:string);
+        onRouteChange(newRoute:string,prevRoute:string):Promise<any>;
     }
 
     interface RouteChangeStrategy{
@@ -542,7 +543,7 @@ declare module "strike-v2" {
         _activeComponent:any;
         _strategy:RouteChangeStrategy; 
         constructor(el:HTMLElement,store:Store,injector:Injector,opts:ExtRouterOptions);
-        onRouteChange(newRoute:string,prevRoute:string);
+        onRouteChange(newRoute:string,prevRoute:string):Promise<any>;
         attachApp(appDef:AppDef);
         route():RouteBuilder<any>;
         addRoute(route:Route):void;

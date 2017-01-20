@@ -77,8 +77,11 @@ export function format(value, replacements) {
  *
  */
 const FORMATTERS = {
+    "typeof": (item) => {
+        return typeof item;
+    },
     "d": (item, extra) => {
-        if (extra.charAt(0) === ".") {
+        if (extra && extra.charAt(0) === ".") {
             return item.toFixed(+extra.substr(1));
         }
         else if (/^[0-9]+$/.test(extra)) {
@@ -120,14 +123,14 @@ const FORMATTERS = {
  * @returns
  */
 export function createFormatter() {
-    let formats = ['[0-9]+?\.[0-9]+?d', '[0-9]+?d', '\.[0-9]+?d', 'd', 'x', 's', 'o'];
+    let formats = ['[0-9]+?\.[0-9]+?d', '[0-9]+?d', '\.[0-9]+?d', 'd', 'x', 's', 'o', 'typeof'];
     let customFormats = {};
     function fmt(format, ...args) {
         let regex = new RegExp("%(" + formats.join("|") + ")");
         let final = args.reduce((prev, current, cIdx) => {
             return prev.replace(regex, (all, a) => {
-                let len = a.length, f = a.charAt(len - 1), fn = FORMATTERS[f] || customFormats[f];
-                return fn(current, a.substr(0, len - 1));
+                let len = a.length, f = a.charAt(len - 1);
+                return (FORMATTERS[a] && FORMATTERS[a](current)) || (customFormats[a] && customFormats[a](current)) || (FORMATTERS[f] && FORMATTERS[f](current, a.substr(0, len - 1))) || (customFormats[f] && customFormats[f](current, a.substr(0, len - 1)));
             });
         }, format);
         return final;
@@ -154,9 +157,9 @@ export function createFormatter() {
  */
 export function printf(format, ...args) {
     let final = args.reduce((prev, current, cIdx) => {
-        return prev.replace(/%([0-9]+?\.[0-9]+?d|[0-9]+?d|\.[0-9]+?d|d|x|s|o)/, (all, a) => {
+        return prev.replace(/%([0-9]+?\.[0-9]+?d|[0-9]+?d|\.[0-9]+?d|d|x|s|o|typeof)/, (all, a) => {
             let len = a.length, f = a.charAt(len - 1);
-            return FORMATTERS[f](current, a.substr(0, len - 1));
+            return (FORMATTERS[a] && FORMATTERS[a](current)) || (FORMATTERS[f] && FORMATTERS[f](current, a.substr(0, len - 1)));
         });
     }, format);
     return final;
