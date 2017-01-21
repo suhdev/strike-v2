@@ -42,6 +42,19 @@
 
             Example1.$inject = [];
 
+            class Example2 extends StrikeJS.ControllerView{
+                constructor(props){
+                    super(props,'example2',{},reduce);
+                }
+
+
+                render(){
+                    return React.createElement('div',{className:'test-div-2'},'Suhail Abood');
+                }
+
+                // static $inject = [];
+            }
+
             router.register(Example1)
                 .routes()
                 .rule('example-1')
@@ -50,8 +63,22 @@
                     console.log(arguments); 
                     return new Promise((resolve,reject)=>{
                         setTimeout(()=>{
-                            reject();
+                            resolve();
                         },2000);
+                    });
+                })
+                .create()
+                .attach();
+            router.register(Example2)
+                .routes()
+                .rule('example-2')
+                .data({firstName:'Suhail',lastName:'Najm'})
+                .onLeave((route,inj)=>{
+                    console.log(arguments); 
+                    return new Promise((resolve,reject)=>{
+                        setTimeout(()=>{
+                            reject();
+                        },3000);
                     });
                 })
                 .create()

@@ -1,10 +1,6 @@
 import {Store} from './Store';
+import * as Promise from 'bluebird';
 
-
-
-
-// declare type Promise<T> 
-declare var Promise:any;
 
 /**
  * Represents an action triggered with-in the application.

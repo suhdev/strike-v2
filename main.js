@@ -21,11 +21,8 @@ var o = {
     repeat:util.repeat
 }
 
-
-(function(){
-    if (window && document){
-        window.StrikeJS = o; 
-    }
-}());
+if (window && document){
+    window.StrikeJS = o; 
+}
 
 module.exports = o; 

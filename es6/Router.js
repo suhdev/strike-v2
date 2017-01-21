@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as Promise from 'bluebird';
 import { identity, getDataAt, setDataAt } from './Util';
 function makeProps($inject, injector) {
     let props = {};

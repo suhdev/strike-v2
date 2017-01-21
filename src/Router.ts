@@ -1,5 +1,6 @@
 import * as React from 'react'; 
 import * as ReactDOM from 'react-dom'; 
+import * as Promise from 'bluebird';
 import {Injector} from './Injector';
 import {Dictionary,identity,getDataAt,setDataAt} from './Util'; 
 import {Store} from './Store'; 

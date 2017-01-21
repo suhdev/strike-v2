@@ -11,22 +11,20 @@ export {IntegerPromisifier} from './es6/IntegerPromisifyMiddleware';
 export {printf,format,setDataAt,getDataAt,createFormatter} from './es6/Util';
 export {Injectable} from './es6/InjectableMiddleware';
 
-(function(){
-    if (window && document){
-        window.StrikeJS = {
-            AppActionDispatcher,
-            Combiner,
-            Router,
-            Store,
-            WorkerMiddleware,
-            Promisify,
-            IntegerPromisifier,
-            printf,
-            format,
-            setDataAt,
-            getDataAt,
-            createFormatter,
-            Injectable
-        }
+if (window && document){
+    window.StrikeJS = {
+        AppActionDispatcher,
+        Combiner,
+        Router,
+        Store,
+        WorkerMiddleware,
+        Promisify,
+        IntegerPromisifier,
+        printf,
+        format,
+        setDataAt,
+        getDataAt,
+        createFormatter,
+        Injectable
     }
-}());
+}

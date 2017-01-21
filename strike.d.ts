@@ -2,7 +2,7 @@ declare module "strike-v2" {
     import {Component} from 'react'; 
     import * as React from 'react'; 
     import * as Immutable from 'immutable';
-    var Promise:any;
+    import * as Promise from 'bluebird';
 	/**
 	 * Represents an action triggered with-in the application.
 	 * 

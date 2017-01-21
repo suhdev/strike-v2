@@ -1,7 +1,7 @@
 module.exports = {
     entry: "./src/StrikeJs.ts",
     output: {
-        filename: "dist/strike.js"
+        filename: "./dist/strike.min.js"
     },
     resolve: {
         // Add '.ts' and '.tsx' as a resolvable extension.

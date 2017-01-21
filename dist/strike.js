@@ -48,14 +48,14 @@
 	var AppActionDispatcher_1 = __webpack_require__(1);
 	var Combiner_1 = __webpack_require__(2);
 	var Router_1 = __webpack_require__(3);
-	var Store_1 = __webpack_require__(7);
-	var WorkerMiddleware_1 = __webpack_require__(10);
-	var PromisifyMiddleware_1 = __webpack_require__(11);
-	var Injector_1 = __webpack_require__(12);
-	var ControllerView_1 = __webpack_require__(13);
-	var IntegerPromisifyMiddleware_1 = __webpack_require__(14);
-	var Util_1 = __webpack_require__(6);
-	var InjectableMiddleware_1 = __webpack_require__(15);
+	var Store_1 = __webpack_require__(8);
+	var WorkerMiddleware_1 = __webpack_require__(11);
+	var PromisifyMiddleware_1 = __webpack_require__(12);
+	var Injector_1 = __webpack_require__(13);
+	var ControllerView_1 = __webpack_require__(14);
+	var IntegerPromisifyMiddleware_1 = __webpack_require__(15);
+	var Util_1 = __webpack_require__(7);
+	var InjectableMiddleware_1 = __webpack_require__(16);
 	(function () {
 	    if (window && document) {
 	        window.StrikeJS = {
@@ -205,7 +205,8 @@
 	"use strict";
 	var React = __webpack_require__(4);
 	var ReactDOM = __webpack_require__(5);
-	var Util_1 = __webpack_require__(6);
+	var Promise = __webpack_require__(6);
+	var Util_1 = __webpack_require__(7);
 	function makeProps($inject, injector) {
 	    var props = {};
 	    $inject.map(function (e) {
@@ -511,6 +512,12 @@
 /* 6 */
 /***/ function(module, exports) {
 
+	module.exports = Promise;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
 	"use strict";
 	function repeat(str, count) {
 	    var r = [];
@@ -696,13 +703,13 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var Combiner_1 = __webpack_require__(2);
-	var Pool_1 = __webpack_require__(8);
-	var Immutable = __webpack_require__(9);
+	var Pool_1 = __webpack_require__(9);
+	var Immutable = __webpack_require__(10);
 	var ChangeStatus;
 	(function (ChangeStatus) {
 	    ChangeStatus[ChangeStatus["PENDING"] = 1] = "PENDING";
@@ -1008,7 +1015,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1042,13 +1049,13 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = Immutable;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1082,7 +1089,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1119,11 +1126,11 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var Util_1 = __webpack_require__(6);
+	var Util_1 = __webpack_require__(7);
 	/**
 	 * A dependency injection module inspired by AngularJS's dependency injection.
 	 *
@@ -1297,7 +1304,7 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1365,7 +1372,7 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1404,7 +1411,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
