@@ -441,7 +441,7 @@ declare module "strike-v2" {
          * 
          * @type {string}
          */
-        name: string;
+        name?: string;
     }
 
 
