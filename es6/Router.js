@@ -122,10 +122,10 @@ const TYPES_TO_PARSE = {
 };
 function parseRoute(route) {
     let routeParams = [];
-    let r = route.replace(/:([\S]+):(number|string|boolean)/g, (e, k, v) => {
+    let r = route.replace(/:([^\s\/]+):(number|string|boolean)/g, (e, k, v) => {
         routeParams.push([k, v]);
         return TYPES_TO_REGEX[v];
-    }).replace(/:([\S]+)/g, (e, k) => {
+    }).replace(/:([^\s\/]+)/g, (e, k) => {
         routeParams.push([k, "string"]);
         return TYPES_TO_REGEX["string"];
     });
